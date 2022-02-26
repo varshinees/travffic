@@ -42,13 +42,11 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 
   <div class="w3-panel">
     <div class="w3-row-padding" style="margin:0 -16px">
-      <div class="w3-twothird">
-        <div id="myGallery">
-        </div>
-
-
+      <!-- PLACE FOR IMAGES -->
+      <div class="w3-twothird" id="myGallery">
         <h5>Route</h5>
-        <img src="/images/placeholdermap.jpg" style="width:100%" alt="This image is broken for some reason :P but we could put the route map here">
+
+
       </div>
       <div class="w3-third">
         <h5>Weather Forecast</h5>
@@ -104,15 +102,17 @@ function getCameras() {
   .then(response => {
     // indicates whether the response is successful (status code 200-299) or not
     if (!response.ok) {
-      console.log(`Request failed with status ${reponse.status}`)
+      console.log(`Request failed with status ${response.status}`)
     }
     return response.json()
   })
   .then(data => {
     let gallery = document.getElementById('myGallery');
+    gallery.innerHTML = "<h5>Route</h5>"
     for (const i in data) {
+        // THIS IS THE LOCATION FOR THE GALLERY
         gallery.innerHTML += "<div class=\"item\"> <img src=" + data[i]['screenshot_address'] + "  width=\"40%\" height=\"40%\"/>"
-              + " <span class=\"caption\">" + data[i]['ip_comm_status'] + "</span> </div>";
+              + " <span class=\"caption\">" + data[i]['location_name'] + "</span> </div>";
       
     }
   })
