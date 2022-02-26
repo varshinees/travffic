@@ -7,6 +7,9 @@
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script async
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDdFS4Aau71yIFvTCoQzH4bQqxMOk5jni4&libraries=places&callback=initMap">
+  </script>
 <style>
 html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 </style>
@@ -21,7 +24,6 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 
 <!-- !PAGE CONTENT! -->
 <div class="w3-main" style="margin-top:43px;">
-
   <!-- Header -->
   <header class="w3-container" style="padding-top:22px">
     <h5><b><i class="fa fa-dashboard"></i>Travis Traffic Dashboard</b></h5>
@@ -29,16 +31,20 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 
   <div class="w3-container">
     <div class="w3-row w3-padding-16">
-      <input class="w3-input" type="text" placeholder= "Starting address">
+      <input class="w3-input" type="text" id="start" placeholder= "Starting address">
       <input class="w3-input" type="text" placeholder= "Destination">
       <br>
-      <button class="w3-button w3-dark-grey">Check Route <i class="fa fa-arrow-right"></i></button>
+      <button class="w3-button w3-dark-grey" onclick="getCameras()">Check Route <i class="fa fa-arrow-right"></i></button>
     </div>
   </div>
 
   <div class="w3-panel">
     <div class="w3-row-padding" style="margin:0 -16px">
       <div class="w3-twothird">
+        <div id="myGallery">
+        </div>
+
+
         <h5>Route</h5>
         <img src="/images/placeholdermap.jpg" style="width:100%" alt="This image is broken for some reason :P but we could put the route map here">
       </div>
@@ -100,22 +106,55 @@ var mySidebar = document.getElementById("mySidebar");
 // Get the DIV with overlay effect
 var overlayBg = document.getElementById("myOverlay");
 
-// Toggle between showing and hiding the sidebar, and add overlay effect
-function w3_open() {
-  if (mySidebar.style.display === 'block') {
-    mySidebar.style.display = 'none';
-    overlayBg.style.display = "none";
-  } else {
-    mySidebar.style.display = 'block';
-    overlayBg.style.display = "block";
+let autocomplete;
+function initMap() {
+  autocomplete = new google.maps.places.Autocomplete(
+       document.getElementById("start"),
+      {
+        componentRestrictions: {'country': ['US']},
+        fields: ['place_id', 'geometry', 'name']
+      });
+
+  autocomplete.addListener('place_changed', onPlaceChanged);
+}
+
+let place;
+function onPlaceChanged() {
+  place = autocomplete.getPlace();
+
+  if (!place.geometry) {
+    document.getElementById("start").placeholder = "Enter your starting location";
   }
 }
 
-// Close the sidebar with the close button
-function w3_close() {
-  mySidebar.style.display = "none";
-  overlayBg.style.display = "none";
+function getCameras() {
+  if (!place) 
+    return;
+  // console.log(place.geometry.location.lng())
+  fetch("https://data.austintexas.gov/resource/b4k4-adkb.json?$where=within_circle(location, " + 
+    place.geometry.location.lat() + ", " +
+    place.geometry.location.lng() + ", 500)")
+
+  .then(response => {
+    // indicates whether the response is successful (status code 200-299) or not
+    if (!response.ok) {
+      console.log(`Request failed with status ${reponse.status}`)
+    }
+    return response.json()
+  })
+  .then(data => {
+    let gallery = document.getElementById('myGallery');
+    for (const i in data) {
+        gallery.innerHTML += "<div class=\"item\"> <img src=" + data[i]['screenshot_address'] + "  width=\"40%\" height=\"40%\"/>"
+              + " <span class=\"caption\">" + data[i]['ip_comm_status'] + "</span> </div>";
+      
+    }
+  })
+  .catch(error => console.log(error))
+
 }
+
+
 </script>
 
 </body>
