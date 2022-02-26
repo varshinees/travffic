@@ -1,0 +1,8 @@
+Get traffic camera images into a grid shape
+https://ehtmlu.com/blog/simple-css-image-grid/
+Change captions into something that shows the addresses when hovered over
+The example code from the above website may not work, test separately, if it doesn't try to fix it or find something similar
+from another source
+
+Also:
+Get a list of all the traffic cameras (in order) along at least one route, put into a csv for the tableau display
