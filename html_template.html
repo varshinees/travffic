@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script type='text/javascript' src='https://prod-useast-a.online.tableau.com/javascripts/api/viz_v1.js'></script>
 <script async
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDdFS4Aau71yIFvTCoQzH4bQqxMOk5jni4&libraries=places&callback=initMap">
 </script>
@@ -61,7 +62,7 @@
 <!-- Top container -->
 <div class="w3-bar w3-top w3-black w3-large" style="z-index:4">
   <!--<div><img src="logo.png" alt="Logo" width="10%" height="10%" align="right" style="Padding: 4px"></div>-->
-  <span class="w3-bar-item"><i class="fa fa-dashboard"></i>Travis Traffic Dashboard</b></span>
+  <span class="w3-bar-item" style="margin: auto; width: 100%; font-size: xx-large; text-align: center;"><i class="fa fa-dashboard"></i>Travis Traffic Dashboard</b></span>
   <div id="ww_81047790d57d6" v='1.20' loc='id' a='{"t":"ticker","lang":"en","ids":["wl1433"],"cl_bkg":"image","cl_font":"#FFFFFF","cl_cloud":"#FFFFFF","cl_persp":"#81D4FA","cl_sun":"#FFC107","cl_moon":"#FFC107","cl_thund":"#FF5722","sl_sot":"fahrenheit","sl_ics":"one_a","font":"Arial","el_nme":3}'>Weather for the Following Location: <a href="https://2ua.org/usa/austin/map/" id="ww_81047790d57d6_u" target="_blank">Austin on Map</a></div><script async src="https://srv2.weatherwidget.org/js/?id=ww_81047790d57d6"></script>
 </div>
 <br/>
@@ -69,7 +70,7 @@
 <!-- !PAGE CONTENT! -->
 <div class="w3-main" style="margin-top:43px;">
   <!-- Header -->
-  <header class="w3-container" style="padding-top:22px">
+  <header class="w3-container" style="padding-top:50px">
     <h5>Enter route to check traffic camera footage</h5>
   </header>
 
@@ -88,6 +89,9 @@
       <div class="w3-threequarter">
         <h5>Road Conditions</h5>
         <div class="myGallery" id="myGallery"></div>
+
+        <div class='tableauPlaceholder' style='width: 800px; height: 527px;'><object class='tableauViz' width='800' height='527' style='display:none;'><param name='host_url' value='https%3A%2F%2Fprod-useast-a.online.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='&#47;t&#47;travfficwics' /><param name='name' value='AustinTrafficCameras&#47;Dashboard1' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='showAppBanner' value='false' /></object></div>
+
         <div id="map" style="float:left;width:70%;height:100%"></div>
       </div>
       <div class="w3-quarter">
@@ -99,17 +103,6 @@
       </div>
     </div>
   </div>
-
-  <!--<script type='text/javascript' src='https://prod-useast-a.online.tableau.com/javascripts/api/viz_v1.js'></script>
-  <div class='tableauPlaceholder' style='width: 800px; height: 527px;'>
-    <object class='tableauViz' width='800' height='527' style='display:none;'>
-      <param name='host_url' value='https%3A%2F%2Fprod-useast-a.online.tableau.com%2F' />
-      <param name='embed_code_version' value='3' /> <param name='site_root' value='&#47;t&#47;travfficwics' />
-      <param name='name' value='AustinTrafficCameras&#47;Dashboard1' /><param name='tabs' value='no' />
-      <param name='toolbar' value='yes' />
-      <param name='showAppBanner' value='false' />
-    </object>
-  </div>-->
 
   <!-- End page content -->
 </div>
