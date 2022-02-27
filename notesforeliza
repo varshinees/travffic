@@ -9,6 +9,35 @@ Also, if weather map is going to be displaying on the right side, consider makin
 the user scrolls down the footage, so they don't have to scroll back up to reference the route. Might need to use some
 of the "sidebar" code from the original template for this
 
+Some cameras have no images (e.g. camera status) but also don't show the "This image is unavailable" image, we should
+consider putting in a placeholder image for these, possibly with a caption over that is always shown with the details
+of the location
+Example: 51ST ST/35 SVRD has no image, in the database the camera status is "REMOVED"
 
-To-do:
-- Get a list of all the traffic cameras (in order) along at least one route, put into a csv for the tableau display
+Possible safety concern: if there's any Q&A for our presentation someone may ask us about potential safety concerns
+(e.g. someone could hypothetically use our site to stalk someone)
+Personally I feel like the concern about this camera footage being abused is valid, but our website isn't showing
+anything that isn't already pretty easily accessible by the public, and isn't set up in a way that would be conducive
+to following any particular person, or easily monitoring a particular place over time. Therefore I don't think our
+site is creating any NEW issues, but an argument could certainly be made that the City of Austin's public camera data
+is itself problematic.
+
+Route:
+99 Ranch Market to GDC
+Waypoints along route:
+- 99 Ranch Market
+- W Huntland Dr x Airport Blvd
+- E Huntland Dr x I35
+- I35 x E Hwy 290
+- I35 x E 55th St
+- I35 x E 51st St
+- I35 x E 46th St
+- I35 x E 40th St
+- I35 x E 32nd St
+- I35 x E Dean Keeton St
+- E Dean Keeton x Harris Park Ave
+- E Dean Keeton x Speedway
+- GDC
+
+
+

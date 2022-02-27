@@ -140,7 +140,7 @@ function getCameras() {
   fetch("https://data.austintexas.gov/resource/b4k4-adkb.json?$where=within_circle(location, " + 
     place.geometry.location.lat() + ", " +
     place.geometry.location.lng() + ", 500)")
-    //uncomment line below and comment line above to more cameras at once
+    //uncomment line below and comment line above to see more cameras at once (for testing the grid)
     //place.geometry.location.lng() + ", 2000)")
 
 
@@ -158,6 +158,8 @@ function getCameras() {
         // THIS IS THE LOCATION FOR THE GALLERY
         gallery.innerHTML += "<div class=\"item\"> <img src=" + data[i]['screenshot_address'] + "  width=\"40%\" height=\"40%\"/>"
               + " <span class=\"caption\">" + data[i]['location_name'] + "</span> </div>";
+        //gallery.innerHTML += "<div class=\"item\"> <img src=" + data[i]['screenshot_address'] + "  width=\"40%\" height=\"40%\"/>"
+              //+ " <span class=\"caption\">" + data[i]['camera_id'] + "</span> </div>";
       
     }
   })
