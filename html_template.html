@@ -71,12 +71,12 @@
 <div class="w3-main" style="margin-top:43px;">
   <!-- Header -->
   <header class="w3-container" style="padding-top:50px">
-    <h5>Enter route to check traffic camera footage</h5>
+    <h5>Welcome to the <b>Travis Traffic Camera dashboard</b>! Where are you going today?</h5>
   </header>
 
   <div class="w3-container">
     <div class="w3-row w3-padding-16">
-      <input class="w3-input" type="text" id="start" placeholder= "Starting address">
+      <input class="w3-input" type="text" id="start" placeholder= "Starting address" style="margin-bottom: 8px;">
       <input class="w3-input" type="text" id="end" placeholder= "Destination">
       <br/>
       <button class="w3-button w3-dark-grey" onclick="getCameras()">Check Route <i class="fa fa-arrow-right"></i></button>
@@ -87,18 +87,19 @@
     <div class="w3-row-padding" style="margin:0 -16px">
       <!-- PLACE FOR IMAGES -->
       <div class="w3-threequarter">
-        <h5>Road Conditions</h5>
+        <h4 id="road-header"></h5>
         <div class="myGallery" id="myGallery"></div>
 
+        <h4>Camera Map View</h5>
         <div class='tableauPlaceholder' style='width: 800px; height: 527px;'><object class='tableauViz' width='800' height='527' style='display:none;'><param name='host_url' value='https%3A%2F%2Fprod-useast-a.online.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='&#47;t&#47;travfficwics' /><param name='name' value='AustinTrafficCameras&#47;Dashboard1' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='showAppBanner' value='false' /></object></div>
 
         <div id="map" style="float:left;width:70%;height:100%"></div>
       </div>
       <div class="w3-quarter">
-        <h5>Route Directions</h5>
+        <h4 id="dir-header"></h5>
         <div id="directionsPanel" style="float:right;width:100%;height:100%"></div>
         <br/>
-        <h5>Weather Forecast</h5>
+        <h4>Weather Forecast</h5>
         <div id="ww_54d60479b968f" v='1.20' loc='id' a='{"t":"horizontal","lang":"en","ids":["wl1433"],"cl_bkg":"image","cl_font":"#FFFFFF","cl_cloud":"#FFFFFF","cl_persp":"#81D4FA","cl_sun":"#FFC107","cl_moon":"#FFC107","cl_thund":"#FF5722","sl_sot":"fahrenheit","sl_ics":"one_a","font":"Arial","el_nme":3}'>Weather for the Following Location: <a href="https://2ua.org/usa/austin/map/" id="ww_54d60479b968f_u" target="_blank">Austin on Map</a></div><script async src="https://srv2.weatherwidget.org/js/?id=ww_54d60479b968f"></script>
       </div>
     </div>
@@ -169,6 +170,9 @@ function onPlaceEndChanged() {
 function getCameras() {
   if (!place || !placeEnd) 
     return;
+
+  document.getElementById('road-header').innerHTML = "Road Conditions";
+  document.getElementById('dir-header').innerHTML = "Route Directions";
 
   var start = document.getElementById('start').value;
   var end = document.getElementById('end').value;
