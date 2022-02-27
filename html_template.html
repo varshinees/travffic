@@ -88,14 +88,20 @@
       <div class="w3-threequarter">
         <h5>Road Conditions</h5>
         <div class="myGallery" id="myGallery"></div>
-
+        <div id="map" style="float:left;width:70%;height:100%"></div>
       </div>
       <div class="w3-quarter">
+        <h5>Route Directions</h5>
+        <div id="directionsPanel" style="float:right;width:100%;height:100%"></div>
+        <br/>
         <h5>Weather Forecast</h5>
         <div id="ww_54d60479b968f" v='1.20' loc='id' a='{"t":"horizontal","lang":"en","ids":["wl1433"],"cl_bkg":"image","cl_font":"#FFFFFF","cl_cloud":"#FFFFFF","cl_persp":"#81D4FA","cl_sun":"#FFC107","cl_moon":"#FFC107","cl_thund":"#FF5722","sl_sot":"fahrenheit","sl_ics":"one_a","font":"Arial","el_nme":3}'>Weather for the Following Location: <a href="https://2ua.org/usa/austin/map/" id="ww_54d60479b968f_u" target="_blank">Austin on Map</a></div><script async src="https://srv2.weatherwidget.org/js/?id=ww_54d60479b968f"></script>
       </div>
     </div>
   </div>
+
+
+
   <!-- Footer -->
   <footer class="w3-container w3-padding-16 w3-light-grey">
     <h4>FOOTER</h4>
@@ -113,6 +119,8 @@ var mySidebar = document.getElementById("mySidebar");
 var overlayBg = document.getElementById("myOverlay");
 
 let autocomplete;
+let directionsService;
+let directionsRenderer;
 function initMap() {
   autocomplete = new google.maps.places.Autocomplete(
        document.getElementById("start"),
@@ -131,6 +139,17 @@ function initMap() {
       });
 
   end_autocomplete.addListener('place_changed', onPlaceEndChanged);
+
+  directionsService = new google.maps.DirectionsService();
+  directionsRenderer = new google.maps.DirectionsRenderer();
+  var austin = new google.maps.LatLng(41.850033, -87.6500523);
+  var mapOptions = {
+    zoom:7,
+    center: austin
+  }
+  var map = new google.maps.Map(document.getElementById('map'), mapOptions);
+  directionsRenderer.setMap(map);
+  directionsRenderer.setPanel(document.getElementById('directionsPanel'));
 }
 
 let place;
@@ -154,6 +173,21 @@ function onPlaceEndChanged() {
 function getCameras() {
   if (!place || !placeEnd) 
     return;
+
+  var start = document.getElementById('start').value;
+  var end = document.getElementById('end').value;
+  var request = {
+    origin:start,
+    destination:end,
+    travelMode: 'DRIVING'
+  };
+  directionsService.route(request, function(response, status) {
+    if (status == 'OK') {
+      directionsRenderer.setDirections(response);
+    }
+  });
+
+
   let gallery = document.getElementById('myGallery');
   gallery.innerHTML = " "
 
@@ -172,10 +206,10 @@ function getCameras() {
   })
   .then(data => {
     for (const i in data) {
-        // THIS IS THE LOCATION FOR THE GALLERY
+      if (i < 7) {
         gallery.innerHTML += "<div class=\"item\"> <img src=" + data[i]['screenshot_address'] + "  width=\"40%\" height=\"40%\"/>"
               + " <span class=\"caption\">" + data[i]['location_name'] + "</span> </div>";
-      
+      }
     }
   })
   .catch(error => console.log(error))
@@ -192,10 +226,10 @@ function getCameras() {
   })
   .then(data => {
     for (const i in data) {
-        // THIS IS THE LOCATION FOR THE GALLERY
-        console.log("HERE", data[i]['location_name'])
+      if (i < 7) {
         gallery.innerHTML += "<div class=\"item\"> <img src=" + data[i]['screenshot_address'] + "  width=\"40%\" height=\"40%\"/>"
               + " <span class=\"caption\">" + data[i]['location_name'] + "</span> </div>";
+      }
       
     }
   })
