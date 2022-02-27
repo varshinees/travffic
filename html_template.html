@@ -76,7 +76,7 @@
   <div class="w3-container">
     <div class="w3-row w3-padding-16">
       <input class="w3-input" type="text" id="start" placeholder= "Starting address">
-      <input class="w3-input" type="text" placeholder= "Destination">
+      <input class="w3-input" type="text" id="end" placeholder= "Destination">
       <br/>
       <button class="w3-button w3-dark-grey" onclick="getCameras()">Check Route <i class="fa fa-arrow-right"></i></button>
     </div>
@@ -122,6 +122,15 @@ function initMap() {
       });
 
   autocomplete.addListener('place_changed', onPlaceChanged);
+
+  end_autocomplete = new google.maps.places.Autocomplete(
+       document.getElementById("end"),
+      {
+        componentRestrictions: {'country': ['US']},
+        fields: ['place_id', 'geometry', 'name']
+      });
+
+  end_autocomplete.addListener('place_changed', onPlaceEndChanged);
 }
 
 let place;
@@ -133,17 +142,27 @@ function onPlaceChanged() {
   }
 }
 
+let placeEnd;
+function onPlaceEndChanged() {
+  placeEnd = end_autocomplete.getPlace();
+
+  if (!placeEnd.geometry) {
+    document.getElementById("end").placeholder = "Enter your destination";
+  }
+}
+
 function getCameras() {
-  if (!place) 
+  if (!place || !placeEnd) 
     return;
+  let gallery = document.getElementById('myGallery');
+  gallery.innerHTML = " "
+
   // console.log(place.geometry.location.lng())
   fetch("https://data.austintexas.gov/resource/b4k4-adkb.json?$where=within_circle(location, " + 
     place.geometry.location.lat() + ", " +
     place.geometry.location.lng() + ", 500)")
     //uncomment line below and comment line above to see more cameras at once (for testing the grid)
     //place.geometry.location.lng() + ", 2000)")
-
-
   .then(response => {
     // indicates whether the response is successful (status code 200-299) or not
     if (!response.ok) {
@@ -152,14 +171,31 @@ function getCameras() {
     return response.json()
   })
   .then(data => {
-    let gallery = document.getElementById('myGallery');
-    gallery.innerHTML = " "
     for (const i in data) {
         // THIS IS THE LOCATION FOR THE GALLERY
         gallery.innerHTML += "<div class=\"item\"> <img src=" + data[i]['screenshot_address'] + "  width=\"40%\" height=\"40%\"/>"
               + " <span class=\"caption\">" + data[i]['location_name'] + "</span> </div>";
-        //gallery.innerHTML += "<div class=\"item\"> <img src=" + data[i]['screenshot_address'] + "  width=\"40%\" height=\"40%\"/>"
-              //+ " <span class=\"caption\">" + data[i]['camera_id'] + "</span> </div>";
+      
+    }
+  })
+  .catch(error => console.log(error))
+
+  fetch("https://data.austintexas.gov/resource/b4k4-adkb.json?$where=within_circle(location, " + 
+    placeEnd.geometry.location.lat() + ", " +
+    placeEnd.geometry.location.lng() + ", 500)")
+  .then(response => {
+    // indicates whether the response is successful (status code 200-299) or not
+    if (!response.ok) {
+      console.log(`Request failed with status ${response.status}`)
+    }
+    return response.json()
+  })
+  .then(data => {
+    for (const i in data) {
+        // THIS IS THE LOCATION FOR THE GALLERY
+        console.log("HERE", data[i]['location_name'])
+        gallery.innerHTML += "<div class=\"item\"> <img src=" + data[i]['screenshot_address'] + "  width=\"40%\" height=\"40%\"/>"
+              + " <span class=\"caption\">" + data[i]['location_name'] + "</span> </div>";
       
     }
   })
