@@ -16,7 +16,7 @@
   .myGallery {
     display: grid;
     grid-gap: 10px;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    grid-template-columns: repeat(3, minmax(150px, 1fr));
   }
 
   .myGallery img {
@@ -85,12 +85,12 @@
   <div class="w3-panel">
     <div class="w3-row-padding" style="margin:0 -16px">
       <!-- PLACE FOR IMAGES -->
-      <div class="w3-twothird">
-        <h5>Route</h5>
+      <div class="w3-threequarter">
+        <h5>Road Conditions</h5>
         <div class="myGallery" id="myGallery"></div>
 
       </div>
-      <div class="w3-third">
+      <div class="w3-quarter">
         <h5>Weather Forecast</h5>
         <div id="ww_54d60479b968f" v='1.20' loc='id' a='{"t":"horizontal","lang":"en","ids":["wl1433"],"cl_bkg":"image","cl_font":"#FFFFFF","cl_cloud":"#FFFFFF","cl_persp":"#81D4FA","cl_sun":"#FFC107","cl_moon":"#FFC107","cl_thund":"#FF5722","sl_sot":"fahrenheit","sl_ics":"one_a","font":"Arial","el_nme":3}'>Weather for the Following Location: <a href="https://2ua.org/usa/austin/map/" id="ww_54d60479b968f_u" target="_blank">Austin on Map</a></div><script async src="https://srv2.weatherwidget.org/js/?id=ww_54d60479b968f"></script>
       </div>

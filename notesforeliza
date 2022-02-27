@@ -1,8 +1,14 @@
-Get traffic camera images into a grid shape
-https://ehtmlu.com/blog/simple-css-image-grid/
-Change captions into something that shows the addresses when hovered over
-The example code from the above website may not work, test separately, if it doesn't try to fix it or find something similar
-from another source
+General thoughts:
+Displaying photos three/row taking up 75% of screen improves visibility but not necessarily enough to see
+for certain that road conditions are safe, plus the proportions look uglier than 2/3 route 1/3 side bar. Consider
+adding functionality for clicking on (or even just hovering) over a certain image to expand it and get a better view
 
-Also:
-Get a list of all the traffic cameras (in order) along at least one route, put into a csv for the tableau display
+QOL edit-- add the time + date the photo is from to the caption
+
+Also, if weather map is going to be displaying on the right side, consider making this a block that can "slide" as
+the user scrolls down the footage, so they don't have to scroll back up to reference the route. Might need to use some
+of the "sidebar" code from the original template for this
+
+
+To-do:
+- Get a list of all the traffic cameras (in order) along at least one route, put into a csv for the tableau display
